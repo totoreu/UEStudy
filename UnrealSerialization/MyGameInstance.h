@@ -4,7 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
+#include "Engine/StreamableManager.h"
 #include "MyGameInstance.generated.h"
+
 
 struct FStudentData
 {
@@ -35,8 +37,19 @@ public:
 
 	virtual void Init() override;
 
+	void SaveStudentPackage() const;
+	void LoadStudentPackage() const;
+	void LoadStudentObject() const;
+
 private:
+	//패키지를 사용하기위해 패키지와 패키지가 담고있는 대표 asset이름
+	static const FString PackageName;
+	static const FString AssetName;
+
 	UPROPERTY()
 	TObjectPtr<class UStudent> StudentSrc;
+
+	FStreamableManager StreamableManager;
+	TSharedPtr<FStreamableHandle> Handle;
 
 };
